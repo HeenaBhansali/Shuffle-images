@@ -1,4 +1,4 @@
-import React, {useState } from "react";
+import React, { useState } from "react";
 import "./App.css";
 
 function App() {
@@ -29,31 +29,34 @@ function App() {
       .map((a) => ({ sort: Math.random(), value: a }))
       .sort((a, b) => a.sort - b.sort)
       .map((a) => a.value);
-    setImagesPosition(shuffled);
     setClassName("enter");
-      setTimeout(() => {
-        setClassName("leave");
-      }, 1000);
     setTimeout(() => {
+      setImagesPosition(shuffled);
+
       setClassName("normal");
-    },1100);
+    }, 1000);
   };
 
   return (
-    <div className="gridContainer">
-      {imagesPosition.map((image, index) => (
-        <img
-          className={classname}
-          key={index}
-          src={image}
-          alt=""
-        />
-      ))}
-
+    <div className="container">
+      <div className="gridContainer">
+        {imagesPosition.map((image, index) => (
+          <img className={classname} key={index} src={image} alt="" />
+        ))}
+      </div>
       <button onClick={handleClick} className="shuffle">
         Shuffle
       </button>
-      <button onClick={() => setImagesPosition(initialImages)}>
+      <button
+        onClick={() => {
+          setClassName("enter");
+          setTimeout(() => {
+            setImagesPosition(initialImages);
+            setClassName("normal");
+          }, 1000);
+        }}
+        className="shuffle"
+      >
         Unshuffle
       </button>
     </div>
